@@ -1,0 +1,673 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "gui_win_resources.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "gui_win_resources.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Deutsch (Deutschland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAINDLG DIALOGEX 0, 0, 625, 466
+STYLE DS_SETFONT | DS_SETFOREGROUND | DS_CENTER | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "rtl_fl2k_433 - an RX/TX prototyping tool"
+MENU IDR_MENU1
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "RX (receive from a RTL-SDR device or load from a pre-recorded file)",IDC_MAIN_RX_STAT01,8,4,300,310
+    LTEXT           "Device:",IDC_MAIN_RX_STAT02,16,16,40,10,SS_CENTERIMAGE
+    LTEXT           "",IDC_MAIN_RX_SDR_DSP,60,16,190,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "configure",IDC_MAIN_RX_SDR_BTN,254,15,44,12
+    LTEXT           "Frequency:",IDC_MAIN_RX_FREQ_LBL,16,30,40,10,SS_CENTERIMAGE
+    LTEXT           "",IDC_MAIN_RX_FREQ_DSP,60,30,92,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "configure",IDC_MAIN_RX_FREQ_BTN,160,29,37,12
+    PUSHBUTTON      "start rtl_433",IDC_MAIN_RX_STARTSTOP,254,29,44,12
+    LTEXT           "Messages received: 0",IDC_MAIN_RX_COUNTER,16,49,100,10,SS_CENTERIMAGE
+    CONTROL         "Display unknown signals",IDC_MAIN_RX_CHKUNK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,200,49,98,10
+    CONTROL         "List1",IDC_MAIN_RX_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,16,60,282,134
+    LTEXT           "RX message details:",IDC_MAIN_RX_STAT03,16,197,282,10,SS_CENTERIMAGE
+    CONTROL         "List1",IDC_MAIN_RX_DETLIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,16,208,282,98
+    GROUPBOX        "TX (send via a FL2K device or save prepared files to a target directory)",IDC_MAIN_TX_STAT01,316,4,298,310
+    COMBOBOX        IDC_MAIN_TX_MODE,324,16,50,80,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "",IDC_MAIN_TX_FILE_DSP,382,16,178,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "select",IDC_MAIN_TX_FILE_BTN,564,16,42,12
+    LTEXT           "",IDC_MAIN_TX_SDR_DSP,382,16,178,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "configure",IDC_MAIN_TX_SDR_BTN,564,16,42,12
+    LTEXT           "Frequency:",IDC_MAIN_TX_FREQ_LBL,324,32,50,12,SS_CENTERIMAGE
+    COMBOBOX        IDC_MAIN_TX_FREQ_CMB,382,32,178,170,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "configure",IDC_MAIN_TX_FREQ_BTN,564,32,42,12
+    PUSHBUTTON      "start fl2k_433",IDC_MAIN_TX_STARTSTOP,324,47,50,13
+    CONTROL         "auto start/stop",IDC_MAIN_TX_AUTOSTART,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_TABSTOP,382,47,56,13
+    LTEXT           "(when queing a message)",IDC_MAIN_TX_STAT02,440,47,166,13,SS_CENTERIMAGE
+    LTEXT           "Messages queued: 0",IDC_MAIN_TX_COUNTER_Q,324,71,100,10,SS_CENTERIMAGE
+    LTEXT           "Messages sent: 0",IDC_MAIN_TX_COUNTER_S,440,71,88,10,SS_CENTERIMAGE
+    CONTROL         "List1",IDC_MAIN_TX_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,324,82,282,112
+    LTEXT           "TX message details:",IDC_MAIN_TX_STAT03,324,197,282,10,SS_CENTERIMAGE
+    LTEXT           "",IDC_MAIN_TX_DETAILS,324,208,282,98,0,WS_EX_STATICEDGE
+    CONTROL         "",IDC_MAIN_RX_SCOPE,"Static",SS_BLACKRECT | SS_NOTIFY,8,322,606,30
+    LTEXT           "Zoom:",IDC_MAIN_RX_SCOPE_LBLZ,8,354,50,12,SS_CENTERIMAGE
+    CONTROL         "",IDC_MAIN_RX_SCOPE_ZOOM,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,60,354,238,12
+    LTEXT           "Position",IDC_MAIN_RX_SCOPE_LBLP,316,354,31,12,SS_CENTERIMAGE
+    CONTROL         "",IDC_MAIN_RX_SCOPE_OFFSET,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,352,354,262,12
+    CONTROL         "",IDC_MAIN_LOG,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,9,374,605,84
+END
+
+IDD_RX_DEV DIALOGEX 0, 0, 341, 114
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "RTL-SDR device selection & settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "RTL-SDR device:",IDC_STATIC,8,8,59,12,SS_CENTERIMAGE
+    COMBOBOX        IDC_RX_DEV_LIST,95,8,190,93,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "<refresh>",IDC_RX_DEV_REFRESH,294,8,38,12
+    LTEXT           "Gain:",IDC_STATIC,8,48,23,14,SS_CENTERIMAGE
+    CONTROL         "automatic",IDC_RX_DEV_RAD_GAINAUTO,"Button",BS_AUTORADIOBUTTON,32,48,46,14
+    CONTROL         "manual",IDC_RX_DEV_RAD_GAINMAN,"Button",BS_AUTORADIOBUTTON,86,48,39,14
+    CONTROL         "",IDC_RX_DEV_GAIN_DSP,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,133,48,37,14,WS_EX_STATICEDGE
+    CONTROL         "",IDC_RX_DEV_GAIN_SLIDER,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,178,42,154,20
+    LTEXT           "Frequency correction:",IDC_STATIC,8,72,79,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_RX_DEV_PPM_EDT,95,72,31,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "ppm.",IDC_STATIC,132,72,38,12,SS_CENTERIMAGE
+    PUSHBUTTON      "OK",IDC_RX_DEV_OK,239,92,42,14
+    PUSHBUTTON      "Cancel",IDC_RX_DEV_CANCEL,290,92,42,14
+    LTEXT           "Sample rate:",IDC_STATIC,8,28,59,12,SS_CENTERIMAGE
+    COMBOBOX        IDC_RX_DEV_SRATE,95,27,190,93,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_RX_FREQ DIALOGEX 0, 0, 260, 124
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Frequency options"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "Selected frequencies: ",IDC_RX_FREQ_CAPTION,8,6,120,8
+    CONTROL         "List1",IDC_RX_FREQ_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,8,20,120,60
+    PUSHBUTTON      "add:",IDC_RX_FREQ_ADD,134,20,20,10
+    EDITTEXT        IDC_RX_FREQ_EDIT,158,20,40,12,ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "clear",IDC_RX_FREQ_CLEAR,134,34,20,10
+    LTEXT           "(use default of 433.92 MHz)",IDC_STATIC,158,34,94,10,SS_CENTERIMAGE
+    LTEXT           "Hopping interval: %lus",IDC_RX_FREQ_HOPCAP,8,86,88,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_RX_FREQ_HOPEDT,100,86,28,12,ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "set",IDC_RX_FREQ_HOPBTN,132,86,25,12
+    PUSHBUTTON      "OK",IDC_RX_FREQ_OK,160,104,44,12
+    PUSHBUTTON      "Cancel",IDC_RX_FREQ_CANCEL,208,104,44,12
+END
+
+IDD_RX_PROT DIALOGEX 0, 0, 385, 343
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Protocol options"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "Enabled protocols:",IDC_RX_PROT_CAPTION,8,8,82,12,SS_CENTERIMAGE
+    PUSHBUTTON      "Enable all",IDC_RX_PROT_SELALL,222,8,44,12
+    PUSHBUTTON      "Disable all",IDC_RX_PROT_SELNONE,274,8,42,12
+    PUSHBUTTON      "Load defaults",IDC_RX_PROT_DEFAULTS,324,8,52,12
+    CONTROL         "List1",IDC_RX_PROT_LIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,8,28,368,284
+    PUSHBUTTON      "OK",IDC_RX_PROT_OK,268,320,48,14
+    PUSHBUTTON      "Cancel",IDC_RX_PROT_CANCEL,324,320,52,14
+END
+
+IDD_RX_OUTPUT DIALOGEX 0, 0, 511, 130
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "rtl_433 output options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Produce decoded output [-F]:",IDC_STATIC,8,4,496,96
+    CONTROL         "Key/value output",IDC_RX_OUT_CHK_KV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,16,100,12
+    EDITTEXT        IDC_RX_OUT_PATH_KV,124,16,200,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "(...)",IDC_RX_OUT_BTN_KV,332,16,42,12
+    CONTROL         "stdout",IDC_RX_OUT_STDO_KV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,382,16,42,12
+    CONTROL         "allow overwrite",IDC_RX_OUT_OVR_KV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,432,16,64,12
+    CONTROL         "CSV output",IDC_RX_OUT_CHK_CSV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,36,100,12
+    EDITTEXT        IDC_RX_OUT_PATH_CSV,124,36,200,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "(...)",IDC_RX_OUT_BTN_CSV,332,36,42,12
+    CONTROL         "stdout",IDC_RX_OUT_STDO_CSV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,382,36,42,12
+    CONTROL         "allow overwrite",IDC_RX_OUT_OVR_CSV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,432,36,64,12
+    CONTROL         "JSON output",IDC_RX_OUT_CHK_JSON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,56,100,12
+    EDITTEXT        IDC_RX_OUT_PATH_JSON,124,56,200,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "(...)",IDC_RX_OUT_BTN_JSON,332,56,42,12
+    CONTROL         "stdout",IDC_RX_OUT_STDO_JSON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,382,56,42,12
+    CONTROL         "allow overwrite",IDC_RX_OUT_OVR_JSON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,432,56,64,12
+    CONTROL         "Syslog UDP output",IDC_RX_OUT_CHK_UDP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,76,85,12
+    LTEXT           "Host:",IDC_STATIC,106,76,37,12,SS_CENTERIMAGE,WS_EX_RIGHT
+    EDITTEXT        IDC_RX_OUT_UDP_HOST,146,76,98,12,ES_AUTOHSCROLL
+    LTEXT           "Port:",IDC_STATIC,248,76,43,12,SS_CENTERIMAGE,WS_EX_RIGHT
+    EDITTEXT        IDC_RX_OUT_UDP_PORT,294,76,30,12,ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "OK",IDC_RX_OUT_BTN_OK,239,108,42,14
+    PUSHBUTTON      "Cancel",IDC_RX_OUT_BTN_CANCEL,290,108,42,14
+END
+
+IDD_RX_EXPERT DIALOGEX 0, 0, 439, 234
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Special/expert settings for librtl_433"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Specify number of seconds to run (-T):",IDC_RX_EXP_DUR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,8,151,12
+    EDITTEXT        IDC_RX_EXP_DUR_EDT,164,8,34,12,ES_AUTOHSCROLL | ES_NUMBER
+    RTEXT           "(not relevant when input file is used)",IDC_STATIC,257,8,174,12,SS_CENTERIMAGE,WS_EX_RIGHT
+    CONTROL         "Specify number of samples to take (-n:)",IDC_RX_EXP_BYTEAMT,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,28,151,12
+    EDITTEXT        IDC_RX_EXP_BYTEAMT_EDT,164,28,34,12,ES_AUTOHSCROLL | ES_NUMBER
+    RTEXT           "(each sample is 2 bytes: 1 each of I & Q)",IDC_STATIC,257,28,174,12,SS_CENTERIMAGE,WS_EX_RIGHT
+    CONTROL         "Auto-stop after first successful event (-E)",IDC_RX_EXP_AUTOSTOP,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,48,151,12
+    LTEXT           "Convert units in decoded output (-C):",IDC_STATIC,8,68,151,12,SS_CENTERIMAGE
+    COMBOBOX        IDC_RX_EXP_CONVMD,164,68,76,93,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Verbosity:",IDC_STATIC,8,88,46,12,SS_CENTERIMAGE
+    LTEXT           "block size:",IDC_STATIC,8,108,36,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_RX_EXP_BSIZE_EDT,49,108,34,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "*512 = %d",IDC_RX_EXP_BSIZE_DSP,85,108,56,12,SS_CENTERIMAGE
+    GROUPBOX        "Options to override internal parameters (automatic determination if unchecked)",IDC_STATIC,67,128,304,76
+    CONTROL         "detection level used to determine pulses (-l)",IDC_RX_EXP_BLEV_OVR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,75,144,158,12
+    EDITTEXT        IDC_RX_EXP_BLEV_EDT,235,144,34,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "[1-16384]",IDC_STATIC,275,144,50,12,SS_CENTERIMAGE
+    CONTROL         "Override short value in data decoder (-z):",IDC_RX_EXP_SVAL_OVR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,76,164,148,12
+    EDITTEXT        IDC_RX_EXP_SVAL_EDT,236,164,34,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "only effects -a mode",IDC_STATIC,275,164,91,12,SS_CENTERIMAGE
+    CONTROL         "Override long value in data decoder (-x):",IDC_RX_EXP_LVAL_OVR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,75,184,149,12
+    EDITTEXT        IDC_RX_EXP_LVAL_EDT,235,184,34,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "only effects -a mode",IDC_STATIC,276,184,91,12,SS_CENTERIMAGE
+    DEFPUSHBUTTON   "OK",IDC_RX_EXP_BTN_OK,320,212,50,14
+    PUSHBUTTON      "Cancel",IDC_RX_EXP_BTN_CANCEL,381,212,50,14
+    COMBOBOX        IDC_RX_EXP_DBGLVL,63,88,76,93,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_RX_SIGGRAB DIALOGEX 0, 0, 401, 87
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "rtl_433 signal grabber options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "OK",IDC_RX_SIGGRAB_OK,166,66,42,14
+    PUSHBUTTON      "Cancel",IDC_RX_SIGGRAB_CANCEL,216,66,42,14
+    CONTROL         "Enable signal grabber [-S]",IDC_RX_SIGGRAB_CHK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,8,120,10
+    PUSHBUTTON      "(...)",IDC_RX_SIGGRAB_PATH_BWS,284,26,24,12
+    LTEXT           "",IDC_RX_SIGGRAB_PATH,80,26,200,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "Existing files (prior recordings) are allowed to be overwritten",IDC_RX_SIGGRAB_OVR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,46,222,12
+    LTEXT           "Output directory:",IDC_RX_SIGGRAB_PATH_LBL,8,26,70,12,SS_CENTERIMAGE
+    PUSHBUTTON      "Use working directory",IDC_RX_SIGGRAB_PATH_CLEAR,312,26,80,12
+END
+
+IDD_RX_STRGRAB DIALOGEX 0, 0, 375, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "rtl_433 stream grabber options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "OK",IDC_RX_STRGRAB_OK,166,66,42,14
+    PUSHBUTTON      "Cancel",IDC_RX_STRGRAB_CANCEL,216,66,42,14
+    CONTROL         "Existing file (prior recordings) is allowed to be overwritten",IDC_RX_STRGRAB_OVR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,46,222,12
+    LTEXT           "Output directory:",IDC_RX_STRGRAB_FILE_LBL,8,26,70,12,SS_CENTERIMAGE
+    PUSHBUTTON      "(...)",IDC_RX_STRGRAB_FILE_BWS,284,26,24,12
+    LTEXT           "",IDC_RX_STRGRAB_FILE,80,26,200,12,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CONTROL         "Dump samples [-w, -W]",IDC_RX_STRGRAB_CHK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,8,120,10
+    CONTROL         "stdout",IDC_RX_STRGRAB_STDOUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,321,26,42,12
+END
+
+IDD_RX_FLEX DIALOGEX 0, 0, 300, 338
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Flex protocol specifications"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "Active protocols:",IDC_RX_FLEX_CAPTION,8,8,82,12,SS_CENTERIMAGE
+    PUSHBUTTON      "Add flex spec",IDC_RX_FLEX_ADD,150,8,50,12
+    PUSHBUTTON      "Remove all flex specs",IDC_RX_FLEX_CLEAR,208,8,82,12
+    CONTROL         "List1",IDC_RX_FLEX_LIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,8,32,282,282
+    PUSHBUTTON      "OK",IDC_RX_FLEX_OK,186,320,48,14
+    PUSHBUTTON      "Cancel",IDC_RX_FLEX_CANCEL,236,320,54,14
+END
+
+IDD_TEXTREADER DIALOGEX 0, 0, 401, 50
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "CAPTION_PLACEHOLDER"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_TEXTREADER_EDIT,8,8,384,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDC_TEXTREADER_OK,146,28,50,14
+    PUSHBUTTON      "Cancel",IDC_TEXTREADER_CANCEL,204,28,50,14
+END
+
+IDD_TX_DEV DIALOGEX 0, 0, 308, 50
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FL2K device selection & settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "FL2K device:",IDC_STATIC,8,8,48,12,SS_CENTERIMAGE
+    COMBOBOX        IDC_TX_DEV_LIST,64,8,190,92,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "<refresh>",IDC_TX_DEV_REFRESH,262,8,38,12
+    PUSHBUTTON      "OK",IDC_TX_DEV_OK,108,28,42,14
+    PUSHBUTTON      "Cancel",IDC_TX_DEV_CANCEL,158,28,42,14
+END
+
+IDD_TX_FREQ DIALOGEX 0, 0, 581, 263
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "OSMO-FL2K frequency options"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "FL2K sample rate",IDC_STATIC,8,4,274,166
+    RTEXT           "Samples per second:",IDC_STATIC,16,16,98,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_TX_FREQ_SAMPRATE,118,16,54,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "(%.02f MS/s)",IDC_TX_FREQ_SRATEDSP,176,16,58,12,SS_CENTERIMAGE
+    LTEXT           "Warning",IDC_TX_FREQ_WARNING,16,30,258,10,SS_CENTERIMAGE
+    CONTROL         "Configure by sample rate (fine adjust using left/right buttons)",IDC_TX_FREQ_RADAUTO,
+                    "Button",BS_AUTORADIOBUTTON,16,44,258,12
+    CONTROL         "",IDC_TX_FREQ_SRATE_SL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,26,60,248,14
+    CONTROL         "Configure by internal FL2K parameters",IDC_TX_FREQ_RADMAN,
+                    "Button",BS_AUTORADIOBUTTON,16,80,274,12
+    LTEXT           "PLL multiplier:",IDC_TX_FREQ_MULT_DSP,26,100,76,14,SS_CENTERIMAGE
+    CONTROL         "",IDC_TX_FREQ_MULT_SL,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,106,98,168,20
+    LTEXT           "div:",IDC_TX_FREQ_DIV_DSP,26,122,76,14,SS_CENTERIMAGE
+    CONTROL         "",IDC_TX_FREQ_DIV_SL,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,106,120,168,20
+    LTEXT           "frac:",IDC_TX_FREQ_FRAC_DSP,26,144,76,14,SS_CENTERIMAGE
+    CONTROL         "",IDC_TX_FREQ_FRAC_SL,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,106,142,168,20
+    GROUPBOX        "Carrier frequency",IDC_STATIC,8,174,274,64
+    EDITTEXT        IDC_TX_FREQ_CARR_DSP,118,186,54,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "",IDC_TX_FREQ_CARR_SL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,16,202,258,14
+    LTEXT           "(%.1f sample points per sine wave at the current sample rate):",IDC_TX_FREQ_CARR_STAT,16,220,258,10,SS_CENTERIMAGE
+    LTEXT           "Radio spectrum (output):",IDC_STATIC,298,8,98,10,SS_CENTERIMAGE
+    CONTROL         "List1",IDC_TX_FREQ_HARM,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,298,20,274,236
+    PUSHBUTTON      "OK",IDC_TX_FREQ_OK,97,244,44,12
+    PUSHBUTTON      "Cancel",IDC_TX_FREQ_CANCEL,149,244,44,12
+END
+
+IDD_TX_EXPERT DIALOGEX 0, 0, 201, 71
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Special/expert settings for libfl2k_433"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Debug level (verbosity):",IDC_STATIC,24,8,112,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_TX_EXP_DBGLVL_EDT,142,8,34,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "FL2K initialization wait time (ms):",IDC_STATIC,24,28,112,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_TX_EXP_INITIME_EDT,142,28,34,12,ES_AUTOHSCROLL | ES_NUMBER
+    DEFPUSHBUTTON   "OK",IDC_TX_EXP_BTN_OK,42,48,50,14
+    PUSHBUTTON      "Cancel",IDC_TX_EXP_BTN_CANCEL,108,48,50,14
+END
+
+IDD_TX_WARN DIALOGEX 0, 0, 350, 258
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "TX warning"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    PUSHBUTTON      "OK",IDC_TX_WARN_OK,150,236,50,14
+    EDITTEXT        IDC_TX_WARN_TXT,8,8,334,200,ES_MULTILINE | ES_READONLY | WS_VSCROLL
+    CONTROL         "I understand and take care",IDC_TX_WARN_CHK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,216,334,12
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+2 TEXTINCLUDE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""gui_win_resources.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+1 TEXTINCLUDE 
+BEGIN
+    "gui_win_resources.h\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "gui_win_icon.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "Open (feed to RX)",           ID_RX_FILE
+        POPUP "Previously opened files"
+        BEGIN
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST0
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST1
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST2
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST3
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST4
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST5
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST6
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST7
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST8
+            MENUITEM "<placeholder>",               ID_RX_FILE_HIST9
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Close program",               ID_PROG_CLOSE
+    END
+    POPUP "RX (librtl_433)"
+    BEGIN
+        MENUITEM "Protocols",                   ID_RX_PROT
+        MENUITEM "Flex Protocols",              ID_RX_FLEXPROT
+        POPUP "Analyzer output (in system log)"
+        BEGIN
+            MENUITEM "Analyze mode [-a]   (Print a textual description of the signal)", ID_RX_MODE_ANALYZE
+            MENUITEM "Pulse analyzer [-A]   (Pulse analysis and decode attempt)", ID_RX_MODE_PLSANLZ
+        END
+        POPUP "Dump samples"
+        BEGIN
+            MENUITEM "all samples (entire data stream) [-w / -W]", ID_RX_DUMP_STREAM
+            MENUITEM "samples of detected signals [-S]", ID_RX_DUMP_SIGS
+        END
+        POPUP "Signal display details"
+        BEGIN
+            MENUITEM "display unknown signals",     ID_RX_DSP_UNKNOWN
+            MENUITEM "high-resolution time stamps [-M hires]", ID_RX_DSP_HIRES
+            MENUITEM "report metadata [-M level]",  ID_RX_DSP_META
+            MENUITEM "report bits [-M bits]",       ID_RX_DSP_BITS
+        END
+        MENUITEM "Additional output",           ID_RX_OUT
+        MENUITEM "Expert/special settings",     ID_RX_EXP
+    END
+    POPUP "TX (libfl2k_433)"
+    BEGIN
+        MENUITEM "FL2K device",                 ID_TX_DEV
+        MENUITEM "Frequency settings",          ID_TX_FREQ
+        MENUITEM "Expert/special settings",     ID_TX_EXP
+    END
+    POPUP "Help"
+    BEGIN
+        MENUITEM "About rtl_fl2k_433",          ID_HELP_ABOUT
+    END
+END
+
+IDR_POPUPMENUS MENU
+BEGIN
+    POPUP "Log List"
+    BEGIN
+        MENUITEM "Copy line to clipboard",      ID_LOG_COPY
+        MENUITEM "Save entire log to file",     ID_LOG_SAVE
+        MENUITEM "Clear log",                   ID_LOG_CLEAR
+    END
+    POPUP "RX List"
+    BEGIN
+        POPUP "Add to TX queue"
+        BEGIN
+            MENUITEM "current signal",              ID_RXLIST_SIGTX
+            MENUITEM "entire pulse",                ID_RXLIST_PLSTX
+        END
+        POPUP "Save to file"
+        BEGIN
+            MENUITEM "current signal",              ID_RXLIST_SAVESIG
+            MENUITEM "entire pulse",                ID_RXLIST_SAVEPLS
+        END
+        MENUITEM "Delete this entry",           ID_RXLIST_DEL
+        MENUITEM "Delete all entries",          ID_RXLIST_DELALL
+    END
+	POPUP "RD List"
+	BEGIN
+        MENUITEM "Copy entry to clipboard",       ID_RDLIST_COPY
+        MENUITEM "Copy all entries to clipboard", ID_RDLIST_COPYALL
+        MENUITEM "Save all entries to file",      ID_RDLIST_SAVEALL
+	END
+    POPUP "Freq List"
+    BEGIN
+        MENUITEM "Remove selected frequency",   ID_FRQLIST_DELSEL
+        MENUITEM "Remove all frequencies (clear)", ID_FRQLIST_DELALL
+    END
+    POPUP "Flex List"
+    BEGIN
+        MENUITEM "Edit selected flex spec",     ID_FLXLIST_EDIT
+        MENUITEM "Remove selected entries",     ID_FLXLIST_DELSEL
+        MENUITEM "Remove all entries (clear)",  ID_FLXLIST_DELALL
+    END
+    POPUP "Prot List"
+    BEGIN
+        MENUITEM "Toggle selected protocol",    ID_PRTLIST_TOGGLE
+        MENUITEM "Enable selected protocols",   ID_PRTLIST_ENABLE
+        MENUITEM "Disable selected protocols",  ID_PRTLIST_DISABLE
+        MENUITEM SEPARATOR
+        MENUITEM "Edit parameter",              ID_PRTLIST_PAREDT
+    END
+    POPUP "TX List"
+    BEGIN
+        MENUITEM "Send again",                  ID_TXLIST_RESEND
+        MENUITEM "Delete",                      ID_TXLIST_DEL
+        MENUITEM "Delete all",                  ID_TXLIST_DELALL
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_MAINDLG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_RX_DEV AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_RX_FREQ AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_RX_PROT AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_RX_OUTPUT AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_RX_EXPERT AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_RX_SIGGRAB AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_RX_STRGRAB AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_TX_DEV AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_TX_FREQ AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_TX_EXPERT AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_TEXTREADER AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_RX_FLEX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MAINDLG, DIALOG
+    BEGIN
+        VERTGUIDE, 9
+        VERTGUIDE, 60
+        VERTGUIDE, 116
+        VERTGUIDE, 152
+        VERTGUIDE, 250
+        VERTGUIDE, 254
+        VERTGUIDE, 298
+        VERTGUIDE, 316
+        VERTGUIDE, 382
+        VERTGUIDE, 440
+        VERTGUIDE, 560
+        VERTGUIDE, 564
+        VERTGUIDE, 606
+        VERTGUIDE, 614
+        HORZGUIDE, 47
+        HORZGUIDE, 60
+        HORZGUIDE, 197
+        HORZGUIDE, 335
+        HORZGUIDE, 366
+    END
+
+    IDD_RX_DEV, DIALOG
+    BEGIN
+        VERTGUIDE, 8
+        VERTGUIDE, 95
+        VERTGUIDE, 332
+        HORZGUIDE, 20
+        HORZGUIDE, 40
+        HORZGUIDE, 84
+        HORZGUIDE, 106
+    END
+
+    IDD_RX_FREQ, DIALOG
+    BEGIN
+    END
+
+    IDD_RX_PROT, DIALOG
+    BEGIN
+        VERTGUIDE, 8
+        VERTGUIDE, 136
+        VERTGUIDE, 180
+        VERTGUIDE, 188
+        VERTGUIDE, 230
+        VERTGUIDE, 238
+        VERTGUIDE, 324
+        VERTGUIDE, 376
+        HORZGUIDE, 20
+        HORZGUIDE, 28
+        HORZGUIDE, 312
+        HORZGUIDE, 334
+    END
+
+    IDD_RX_OUTPUT, DIALOG
+    BEGIN
+    END
+
+    IDD_RX_EXPERT, DIALOG
+    BEGIN
+    END
+
+    IDD_RX_SIGGRAB, DIALOG
+    BEGIN
+    END
+
+    IDD_RX_STRGRAB, DIALOG
+    BEGIN
+    END
+
+    IDD_RX_FLEX, DIALOG
+    BEGIN
+    END
+
+    IDD_TEXTREADER, DIALOG
+    BEGIN
+    END
+
+    IDD_TX_DEV, DIALOG
+    BEGIN
+    END
+
+    IDD_TX_FREQ, DIALOG
+    BEGIN
+    END
+
+    IDD_TX_EXPERT, DIALOG
+    BEGIN
+        VERTGUIDE, 100
+        VERTGUIDE, 136
+        VERTGUIDE, 176
+        BOTTOMMARGIN, 70
+        HORZGUIDE, 20
+        HORZGUIDE, 40
+        HORZGUIDE, 62
+    END
+
+    IDD_TX_WARN, DIALOG
+    BEGIN
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Deutsch (Deutschland) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\optparse.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\res\gui_win_resources.h">
+      <Filter>Resource files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logwrap.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rxlist_entry.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_main.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_main_rxlist.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_main_log.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_rxopt_exp.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_rxopt_out.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_rxopt_prot.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_rxopt_dev.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_rxopt_freq.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_txopt_dev.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_txopt_exp.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_txopt_freq.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_main_txlist.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\txlist_entry.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_txwarn.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\configure.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\confparse.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_main_rxdetails.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_rxopt_siggrab.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_rxopt_strgrab.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\compat_paths.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_rxopt_flex.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_main_rx.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_main_tx.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_main_rxscope.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wndelements.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wnd_textreader.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\logwrap.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\optparse.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rxlist_entry.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_main_log.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_main_rxlist.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_txopt_dev.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_txopt_exp.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_txopt_freq.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_rxopt_freq.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_rxopt_dev.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_rxopt_prot.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_rxopt_out.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_rxopt_exp.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_main_txlist.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\txlist_entry.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtl_fl2k_433.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_txwarn.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\configure.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\confparse.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_main_rxdetails.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_rxopt_siggrab.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_rxopt_strgrab.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\compat_paths.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_rxopt_flex.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_main_rx.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_main_tx.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_main_rxscope.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_main.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wndelements.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\wnd_textreader.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\res\gui_win_icon.ico">
+      <Filter>Resource files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\res\gui_win_resources.rc">
+      <Filter>Resource files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

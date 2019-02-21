@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7CCCC3AE-D6C7-40DA-A9CD-30F9E66DF7DC}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>rtl_fl2k_433</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
+    <ProjectName>rtl_fl2k_433</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)tmp\dynamic\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)builds\dynamic\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)tmp\dynamic\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)builds\dynamic\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>TX_ENABLED;WIN32_LEAN_AND_MEAN;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\include\;..\res\;..\..\librtl_433\include\;..\..\getopt_win\getopt_win_dll\;..\..\librtlsdr\include\;..\..\libfl2k_433\include\;..\..\libosmo-fl2k\include\;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\x64\Debug;..\..\getopt_win\x64\Debug Dll;..\..\librtlsdr\vs15\x64\Debug\;..\..\librtl_433\vs15\builds\x64\Debug\;..\..\libfl2k_433\vs15\builds\x64\Debug;..\..\libosmo-fl2k\vs15\builds\x64\Debug\;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>librtl_433.lib;getoptd.lib;rtlsdr.lib;libfl2k_433.lib;osmo-fl2k.lib;ws2_32.lib;comctl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>TX_ENABLED;WIN32_LEAN_AND_MEAN;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\include\;..\res\;..\..\librtl_433\include\;..\..\getopt_win\getopt_win_dll\;..\..\librtlsdr\include\;..\..\libfl2k_433\include\;..\..\libosmo-fl2k\include\;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\..\getopt_win\x64\Release Dll;..\..\librtlsdr\vs15\x64\Release\;..\..\librtl_433\vs15\builds\x64\Release\;..\..\libfl2k_433\vs15\builds\x64\Release;..\..\libosmo-fl2k\vs15\builds\x64\Release;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>librtl_433.lib;getopt.lib;rtlsdr.lib;libfl2k_433.lib;osmo-fl2k.lib;ws2_32.lib;comctl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\compat_paths.h" />
+    <ClInclude Include="..\include\configure.h" />
+    <ClInclude Include="..\include\confparse.h" />
+    <ClInclude Include="..\include\optparse.h" />
+    <ClInclude Include="..\include\logwrap.h" />
+    <ClInclude Include="..\include\rxlist_entry.h" />
+    <ClInclude Include="..\include\wndelements.h" />
+    <ClInclude Include="..\include\wnd_main.h" />
+    <ClInclude Include="..\include\wnd_main_log.h" />
+    <ClInclude Include="..\include\wnd_main_rx.h" />
+    <ClInclude Include="..\include\wnd_main_rxdetails.h" />
+    <ClInclude Include="..\include\wnd_main_rxlist.h" />
+    <ClInclude Include="..\include\wnd_main_rxscope.h" />
+    <ClInclude Include="..\include\wnd_main_tx.h" />
+    <ClInclude Include="..\include\wnd_rxopt_dev.h" />
+    <ClInclude Include="..\include\wnd_rxopt_exp.h" />
+    <ClInclude Include="..\include\wnd_rxopt_flex.h" />
+    <ClInclude Include="..\include\wnd_rxopt_freq.h" />
+    <ClInclude Include="..\include\wnd_rxopt_out.h" />
+    <ClInclude Include="..\include\wnd_rxopt_prot.h" />
+    <ClInclude Include="..\include\txlist_entry.h" />
+    <ClInclude Include="..\include\wnd_main_txlist.h" />
+    <ClInclude Include="..\include\wnd_rxopt_siggrab.h" />
+    <ClInclude Include="..\include\wnd_rxopt_strgrab.h" />
+    <ClInclude Include="..\include\wnd_textreader.h" />
+    <ClInclude Include="..\include\wnd_txopt_dev.h" />
+    <ClInclude Include="..\include\wnd_txopt_exp.h" />
+    <ClInclude Include="..\include\wnd_txopt_freq.h" />
+    <ClInclude Include="..\include\wnd_txwarn.h" />
+    <ClInclude Include="..\res\gui_win_resources.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\compat_paths.cpp" />
+    <ClCompile Include="..\src\configure.cpp" />
+    <ClCompile Include="..\src\confparse.cpp" />
+    <ClCompile Include="..\src\optparse.cpp" />
+    <ClCompile Include="..\src\logwrap.cpp" />
+    <ClCompile Include="..\src\rxlist_entry.cpp" />
+    <ClCompile Include="..\src\rtl_fl2k_433.cpp" />
+    <ClCompile Include="..\src\wndelements.cpp" />
+    <ClCompile Include="..\src\wnd_main.cpp" />
+    <ClCompile Include="..\src\wnd_main_log.cpp" />
+    <ClCompile Include="..\src\wnd_main_rx.cpp" />
+    <ClCompile Include="..\src\wnd_main_rxdetails.cpp" />
+    <ClCompile Include="..\src\wnd_main_rxlist.cpp" />
+    <ClCompile Include="..\src\wnd_main_rxscope.cpp" />
+    <ClCompile Include="..\src\wnd_main_tx.cpp" />
+    <ClCompile Include="..\src\wnd_rxopt_dev.cpp" />
+    <ClCompile Include="..\src\wnd_rxopt_exp.cpp" />
+    <ClCompile Include="..\src\wnd_rxopt_flex.cpp" />
+    <ClCompile Include="..\src\wnd_rxopt_freq.cpp" />
+    <ClCompile Include="..\src\wnd_rxopt_out.cpp" />
+    <ClCompile Include="..\src\wnd_rxopt_prot.cpp" />
+    <ClCompile Include="..\src\txlist_entry.cpp" />
+    <ClCompile Include="..\src\wnd_main_txlist.cpp" />
+    <ClCompile Include="..\src\wnd_rxopt_siggrab.cpp" />
+    <ClCompile Include="..\src\wnd_rxopt_strgrab.cpp" />
+    <ClCompile Include="..\src\wnd_textreader.cpp" />
+    <ClCompile Include="..\src\wnd_txopt_dev.cpp" />
+    <ClCompile Include="..\src\wnd_txopt_exp.cpp" />
+    <ClCompile Include="..\src\wnd_txopt_freq.cpp" />
+    <ClCompile Include="..\src\wnd_txwarn.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\res\gui_win_resources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\res\gui_win_icon.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
