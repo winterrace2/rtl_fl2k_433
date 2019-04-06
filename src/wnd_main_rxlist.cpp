@@ -171,11 +171,6 @@ DWORD rxlist::getRightClickCommand(LPNMITEMACTIVATE dat, INT *selidx) {
 		POINT pt = dat->ptAction;
 		INT cnt = this->GetRxEntryCount();
 		BOOL objsel = (*selidx >= 0 && *selidx < cnt);
-		BOOL mod_unknown = FALSE;
-		if (objsel) {
-			rx_entry *e = this->GetRxEntry(*selidx);
-			mod_unknown = (e->getModulation() == SIGNAL_MODULATION_UNK);
-		}
 		EnableMenuItem(this->hPopup, 0, MF_BYPOSITION | (objsel ? MF_ENABLED : MF_DISABLED)); // popup including ID_RXLIST_SIGTX and ID_RXLIST_PLSTX
 		EnableMenuItem(this->hPopup, 1, MF_BYPOSITION | (objsel ? MF_ENABLED : MF_DISABLED)); // popup including ID_RXLIST_SAVESIG and ID_RXLIST_SAVEPLS
 		EnableMenuItem(this->hPopup, ID_RXLIST_DEL,    MF_BYCOMMAND | (objsel ? MF_ENABLED : MF_GRAYED));

@@ -58,8 +58,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>TX_ENABLED;WIN32_LEAN_AND_MEAN;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TX_ENABLED;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\include\;..\res\;..\..\librtl_433\include\;..\..\getopt_win\getopt_win_dll\;..\..\librtlsdr\include\;..\..\libfl2k_433\include\;..\..\libosmo-fl2k\include\;</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
