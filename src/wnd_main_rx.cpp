@@ -667,7 +667,6 @@ VOID RxGui_onInit(HWND hMainWnd, HMENU hMainMenu, HMENU poprx, HMENU popdet, HME
 		rx->cfg->outputs_configured |= OUTPUT_EXT;
 		rx->cfg->output_extcallback = (void*)GuiNotificationHandler;
 		rx->cfg->report_protocol = 1;
-		rx->cfg->report_unknown = 1;
 
 		// Pre-select an RTL-SDR if we find exactly one:
 		RtlQuickLoad();
