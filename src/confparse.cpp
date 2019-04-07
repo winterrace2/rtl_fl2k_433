@@ -1,14 +1,14 @@
 /** @file
     Light-weight (i.e. dumb) config-file parser.
 
-	- a valid config line is a keyword followed by an argument to the end of line
+    - a valid config line is a keyword followed by an argument to the end of line
     - whitespace around the keyword is ignored
     - comments start with a hash sign, no inline comments, empty lines are ok.
     - whitespace is space and tab
 
-	Copyright (C) 2018 Christian W. Zuckschwerdt <zany@triq.net>
+    Copyright (C) 2018 Christian W. Zuckschwerdt <zany@triq.net>
 
-	This program is free software; you can redistribute it and/or modify
+    This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
@@ -56,13 +56,13 @@ char *readconf(char const *path)
 
     fp = fopen(path, "rb");
     if (fp == NULL) {
-		Gui_fprintf(stderr, "Failed to open \"%s\"\n", path);
+        Gui_fprintf(stderr, "Failed to open \"%s\"\n", path);
         return NULL;
     }
 
     conf = (char *)malloc(file_size + 1);
     if (conf == NULL) {
-		Gui_fprintf(stderr, "Failed to allocate memory for \"%s\"\n", path);
+        Gui_fprintf(stderr, "Failed to allocate memory for \"%s\"\n", path);
         fclose(fp);
         return NULL;
     }
@@ -70,7 +70,7 @@ char *readconf(char const *path)
     off_t n_read = (off_t) fread(conf, sizeof(char), file_size, fp);
     fclose(fp);
     if (n_read != file_size) {
-		Gui_fprintf(stderr, "Failed to read \"%s\"\n", path);
+        Gui_fprintf(stderr, "Failed to read \"%s\"\n", path);
         free(conf);
         return NULL;
     }
@@ -145,6 +145,6 @@ int getconf(char **conf, struct conf_keywords const keywords[], char **arg)
         }
     }
 
-	Gui_fprintf(stderr, "Unknown keyword \"%s\"\n", kw);
+    Gui_fprintf(stderr, "Unknown keyword \"%s\"\n", kw);
     return '?';
 }

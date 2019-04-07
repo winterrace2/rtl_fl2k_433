@@ -174,17 +174,16 @@ static void GuiNotificationHandler(data_ext_t *datext) {
 	}
 
 	if (!s_time || !(*s_time)) return;
+	if (!(datext->ext.mod >= OOK_DEMOD_MIN_VAL && datext->ext.mod <= OOK_DEMOD_MAX_VAL) && !(datext->ext.mod >= FSK_DEMOD_MIN_VAL && datext->ext.mod <= FSK_DEMOD_MAX_VAL) && !(datext->ext.mod >= UNKNOWN_OOK && datext->ext.mod <= UNKNOWN_FSK)) return;
 
 	rx_entry *ge = new rx_entry();
 	ge->setDevId(s_prot);
 	ge->setTime(s_time);
 	if (s_type) ge->setType(s_type);
 	if (s_model) ge->setModel(s_model);
-	if (datext->ext.mod >= OOK_DEMOD_MIN_VAL && datext->ext.mod <= OOK_DEMOD_MAX_VAL) ge->setModulation(SIGNAL_MODULATION_OOK);
-	else if (datext->ext.mod >= FSK_DEMOD_MIN_VAL && datext->ext.mod <= FSK_DEMOD_MAX_VAL) ge->setModulation(SIGNAL_MODULATION_FSK);
-	else                                                           ge->setModulation(SIGNAL_MODULATION_UNK);
-	if (datext->ext.pulses && datext->ext.samprate) {
-		if (!ge->copyPulses(datext->ext.pulses, datext->ext.freq, datext->ext.samprate, datext->ext.pulseexc_startidx, datext->ext.pulseexc_len)) Gui_fprintf(stderr, "Internal error: pulses could not be copied.\n");
+	ge->setModulation(((datext->ext.mod >= FSK_DEMOD_MIN_VAL && datext->ext.mod <= FSK_DEMOD_MAX_VAL) || datext->ext.mod == UNKNOWN_FSK) ? SIGNAL_MODULATION_FSK : SIGNAL_MODULATION_OOK);
+	if (datext->ext.pulses/* && datext->ext.samprate*/) {
+		if (!ge->copyPulses(datext->ext.pulses, datext->ext.pulseexc_startidx, datext->ext.pulseexc_len)) Gui_fprintf(stderr, "Internal error: pulses could not be copied.\n");
 	}
 	// copy data list (actually, it only copies the pointer and increases the usage counter)
 	if (!ge->copyData(&datext->data)) Gui_fprintf(stderr, "Internal error: data could not be copied.\n");
@@ -264,11 +263,14 @@ static VOID InitSlider_ScopeOffset() {
 }
 
 static VOID SaveRxPulse(rx_entry *entry, BOOL entirepulse = FALSE) {
-
-	// todo: Check entry->getModulation() and respect FSK;
+	sigmod mod = entry->getModulation();
+	if (mod != SIGNAL_MODULATION_OOK && mod != SIGNAL_MODULATION_FSK) {
+		Gui_fprintf(stderr, "Unknown modulation. Abort saving...\n");
+		return;
+	}
 
 	char fpath[MAX_PATH] = "";
-	OPENFILENAME ofntemp = { sizeof(OPENFILENAME), hwndMainDlg, 0, "OOK pulse data (text) (*.ook)\0*.ook\0VCD logic (text) (*.vcd)\0*.vcd\0\0", 0, 0, 0, (char*)fpath, sizeof(fpath), 0,0,0, "Save file as:", OFN_EXPLORER | OFN_OVERWRITEPROMPT | OFN_READONLY | OFN_HIDEREADONLY, 0, 0, "ook", 0, 0, 0 };
+	OPENFILENAME ofntemp = { sizeof(OPENFILENAME), hwndMainDlg, 0, "OOK/FSK pulse data (text) (*.ook)\0*.ook\0VCD logic (text) (*.vcd)\0*.vcd\0\0", 0, 0, 0, (char*)fpath, sizeof(fpath), 0,0,0, "Save file as:", OFN_EXPLORER | OFN_OVERWRITEPROMPT | OFN_READONLY | OFN_HIDEREADONLY, 0, 0, "ook", 0, 0, 0 };
 	if (!GetSaveFileName(&ofntemp)) return;
 	LPSTR ext = &fpath[ofntemp.nFileExtension];
 
@@ -285,13 +287,18 @@ static VOID SaveRxPulse(rx_entry *entry, BOOL entirepulse = FALSE) {
 		pulse_data_t *trg = (pulse_data_t *)calloc(1, sizeof(pulse_data_t));
 		if (trg) {
 			// Fill (required) elements of the pulse_data_t object
-			trg->freq1_hz = (float) src->frequency;
-			trg->sample_rate = src->samplerate;
+			trg->sample_rate = src->sample_rate;
 			unsigned int s = (entirepulse || !src->segment_len ? 0 : src->segment_startidx);
 			unsigned int e = (entirepulse || !src->segment_len ? src->num_pulses : min(src->segment_startidx + src->segment_len, src->num_pulses));
-			trg->num_pulses = min(e - s, (sizeof(trg->pulse)/sizeof(int)));
+			trg->num_pulses = min(e - s, (sizeof(trg->pulse) / sizeof(int)));
 			memcpy(trg->pulse, src->pulse, trg->num_pulses*sizeof(int));
 			memcpy(trg->gap, src->gap, trg->num_pulses*sizeof(int));
+			trg->freq1_hz = (float)src->freq1_hz;
+			trg->freq2_hz = (float)src->freq2_hz;
+			trg->fsk_f2_est = (mod == SIGNAL_MODULATION_FSK ? 1 : 0); // 1 is just used as exemplary non-null value to let librtl_433 recognize FSK
+			trg->rssi_db = src->rssi_db;
+			trg->snr_db = src->snr_db;
+			trg->noise_db = src->noise_db;
 
 			// Save this pulse_data_t object to output file in requested format
 			if (!_stricmp(ext, "ook")) {
@@ -299,7 +306,7 @@ static VOID SaveRxPulse(rx_entry *entry, BOOL entirepulse = FALSE) {
 				pulse_data_dump(file, trg);
 			}
 			else if (!_stricmp(ext, "vcd")) {
-				pulse_data_print_vcd_header(file, src->samplerate);
+				pulse_data_print_vcd_header(file, src->sample_rate);
 				pulse_data_print_vcd(file, trg, '\'');
 			}
 			else {
@@ -398,7 +405,6 @@ BOOL RxGui_onRightClick(LPNMHDR ctx_in) {
 		case ID_RXLIST_SIGTX:
 		case ID_RXLIST_PLSTX: {
 			rx_entry *e = lv_rx->GetRxEntry(selidx);
-			if (!e || (e->getModulation() == SIGNAL_MODULATION_UNK && MessageBox(hwndMainDlg, "The signal you selected has an unknown modulation type.\r\nPress OK to add it to the TX queue assuming it is OOK-based.", "Signal with unknown modulation type", MB_OKCANCEL | MB_ICONINFORMATION) != IDOK)) break;
 			QueueRxPulseToTx(e, (cmd == ID_RXLIST_PLSTX));
 			break;
 		}
@@ -650,6 +656,8 @@ VOID RxGui_onInit(HWND hMainWnd, HMENU hMainMenu, HMENU poprx, HMENU popdet, HME
 	// Init RX
 	rtl_433_init(&rx);
 	if (rx >= 0) {
+		rx->cfg->new_model_keys = 1; // override current default
+
 		// Load settings (command line and/or config file)
 		if (configure_librtl433(rx->cfg, __argc, __argv, 1) != CFG_SUCCESS_GO_ON) {
 			MessageBox(hwndMainDlg, "Command line processing threw some text output (see log), possibly not all options have been parsed.", "Information", MB_OK | MB_ICONINFORMATION);

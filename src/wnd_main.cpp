@@ -302,7 +302,7 @@ static BOOL onCommand(WPARAM wParam, LPARAM lParam) {
 	}
 
 	case ID_HELP_ABOUT:
-		MessageBox(hwndMainDlg, "RX TX prototyping tool. Version: v0.1\r\n\r\nBased on / credits to:\r\n - rtlsdr\r\n - osmo-fl2k\r\n - libusb\r\n - rtl_433\r\n\r\nhttps://github.com/winterrace2", "rtl_fl2k_433", MB_OK | MB_ICONINFORMATION);
+		MessageBox(hwndMainDlg, "RX TX prototyping tool. Version: v0.2\r\n\r\nBased on / credits to:\r\n - rtlsdr\r\n - osmo-fl2k\r\n - libusb\r\n - rtl_433\r\n\r\nhttps://github.com/winterrace2", "rtl_fl2k_433", MB_OK | MB_ICONINFORMATION);
 		break;
 
 	case ID_PROG_CLOSE:

@@ -66,8 +66,12 @@ static VOID loadSettings() {
 		tx->cfg.samp_rate = tmp_dw;
 	}
 	tmp_size = sizeof(tmp_dw);
-	if (RegQueryValueEx(regkey, "TX_carrier", NULL, &tmp_type, (LPBYTE)&tmp_dw, &tmp_size) == ERROR_SUCCESS && tmp_type == REG_DWORD && tmp_size == sizeof(tmp_dw)) {
-		tx->cfg.carrier = tmp_dw;
+	if (RegQueryValueEx(regkey, "TX_carrier1", NULL, &tmp_type, (LPBYTE)&tmp_dw, &tmp_size) == ERROR_SUCCESS && tmp_type == REG_DWORD && tmp_size == sizeof(tmp_dw)) {
+		tx->cfg.carrier1 = tmp_dw;
+	}
+	tmp_size = sizeof(tmp_dw);
+	if (RegQueryValueEx(regkey, "TX_carrier2", NULL, &tmp_type, (LPBYTE)&tmp_dw, &tmp_size) == ERROR_SUCCESS && tmp_type == REG_DWORD && tmp_size == sizeof(tmp_dw)) {
+		tx->cfg.carrier2 = tmp_dw;
 	}
 	tmp_size = sizeof(out_dir_gui);
 	if (RegQueryValueEx(regkey, "TX_out_dir", NULL, &tmp_type, (LPBYTE)out_dir_gui, &tmp_size) != ERROR_SUCCESS || tmp_type != REG_SZ) {
@@ -85,7 +89,8 @@ static VOID saveSettings() {
 	if (RegCreateKeyEx(HKEY_CURRENT_USER, REG_PATH, 0, "", REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &regkey, &disposition) != ERROR_SUCCESS) return;
 
 	RegSetValueEx(regkey, "TX_samp_rate", 0, REG_DWORD, (LPBYTE)&tx->cfg.samp_rate, sizeof(tx->cfg.samp_rate));
-	RegSetValueEx(regkey, "TX_carrier", 0, REG_DWORD, (LPBYTE)&tx->cfg.carrier, sizeof(tx->cfg.carrier));
+	RegSetValueEx(regkey, "TX_carrier1", 0, REG_DWORD, (LPBYTE)&tx->cfg.carrier1, sizeof(tx->cfg.carrier1));
+	RegSetValueEx(regkey, "TX_carrier2", 0, REG_DWORD, (LPBYTE)&tx->cfg.carrier2, sizeof(tx->cfg.carrier2));
 	RegSetValueEx(regkey, "TX_out_dir", 0, REG_SZ, (LPBYTE)out_dir_gui, (DWORD)strlen(out_dir_gui) + 1);
 
 	RegCloseKey(regkey);
@@ -219,9 +224,26 @@ static void RefreshTxListInfo() {
 }
 
 VOID QueueRxPulseToTx(rx_entry *entry, BOOL entirepulse) {
+	// check params
 	if (!lv_tx || !entry) return;
 	pPulseDatCompact pulses = entry->getPulses();
 	if (!pulses) return;
+	
+	// prepare TX modulation
+	mod_type mod_out;
+	switch (entry->getModulation()) {
+		case SIGNAL_MODULATION_OOK:
+			mod_out = MODULATION_TYPE_OOK;
+			break;
+		case SIGNAL_MODULATION_FSK:
+			mod_out = MODULATION_TYPE_FSK;
+			break;
+		default: // SIGNAL_MODULATION_UNK:
+			if (MessageBox(hwndMainDlg, "Shall we assume it is OOK-based?", "Signal with unknown modulation type", MB_YESNO | MB_ICONQUESTION) == IDYES) mod_out = MODULATION_TYPE_OOK;
+			else if (MessageBox(hwndMainDlg, "Shall we assume it is FSK-based?", "Signal with unknown modulation type", MB_YESNO | MB_ICONQUESTION) == IDYES) mod_out = MODULATION_TYPE_FSK;
+			else return;
+			break;
+	};
 
 	// print description
 	char dscr[100];
@@ -252,7 +274,7 @@ VOID QueueRxPulseToTx(rx_entry *entry, BOOL entirepulse) {
 	}
 
 	// create tx_entry
-	tx_entry *te = new tx_entry(dscr, MODULATION_TYPE_OOK, buf, buf_l, pulses->samplerate);
+	tx_entry *te = new tx_entry(dscr, mod_out, buf, buf_l, pulses->sample_rate);
 	if (!te) {
 		free(buf);
 		Gui_fprintf(stderr, "Unexpected internal error in QueueRxPulseToTx: no memory left for allocating new tx_entry\n");
@@ -291,19 +313,24 @@ static VOID RebuildTxFreqCombo(BOOL update_sel = FALSE) {
 		SendMessage(hTxFreqCmb, CB_RESETCONTENT, 0, 0);
 		// Manual configuration:
 		char freqstr[64];
-		if(tx) sprintf_s(freqstr, sizeof(freqstr), "Custom configuration (%.02fMS/s with %.02fMHz carrier)", ((double)tx->cfg.samp_rate / 1000000.0), ((double)tx->cfg.carrier / 1000000.0));
-		else   sprintf_s(freqstr, sizeof(freqstr), "Custom configuration");
+		if(!tx)							sprintf_s(freqstr, sizeof(freqstr), "Custom");
+		else if(tx->cfg.carrier2 > 0)	sprintf_s(freqstr, sizeof(freqstr), "Custom (%.02fMS/s, carriers %.02fMHz+%.02fMHz)", ((double)tx->cfg.samp_rate / 1000000.0), ((double)tx->cfg.carrier1 / 1000000.0), ((double)tx->cfg.carrier2 / 1000000.0));
+		else							sprintf_s(freqstr, sizeof(freqstr), "Custom (%.02fMS/s, carrier %.02fMHz)", ((double)tx->cfg.samp_rate / 1000000.0), ((double)tx->cfg.carrier1 / 1000000.0));
 		SendMessage(hTxFreqCmb, CB_ADDSTRING, 0, (LPARAM)freqstr);
 		// Some popular presets:
-		SendMessage(hTxFreqCmb, CB_ADDSTRING, 0, (LPARAM)"Preset1: 433.92MHz@85.5MS/s (5th harmonic)");
-		SendMessage(hTxFreqCmb, CB_ADDSTRING, 0, (LPARAM)"Preset2: 433.92MHz@42.7MS/s (10th harmonic)");
-		SendMessage(hTxFreqCmb, CB_ADDSTRING, 0, (LPARAM)"Preset3: 433.92MHz@21.3MS/s (20th harmonic)");
+		SendMessage(hTxFreqCmb, CB_ADDSTRING, 0, (LPARAM)"OOK preset1: 433.92MHz@85.5MS/s (5th harmonic)");
+		SendMessage(hTxFreqCmb, CB_ADDSTRING, 0, (LPARAM)"OOK preset2: 433.92MHz@42.7MS/s (10th harmonic)");
+		SendMessage(hTxFreqCmb, CB_ADDSTRING, 0, (LPARAM)"OOK preset3: 433.92MHz@21.3MS/s (20th harmonic)");
+		SendMessage(hTxFreqCmb, CB_ADDSTRING, 0, (LPARAM)"FSK preset1: 433.92MHz@85.5MS/s +/- 30kHz");
+		SendMessage(hTxFreqCmb, CB_ADDSTRING, 0, (LPARAM)"FSK preset2: 433.92MHz@85.5MS/s -/+ 30kHz");
 		// Update or restore selection 
 		if (update_sel) {
-			if      (tx && tx->cfg.samp_rate == FL2K_PRESET1_SRATE && tx->cfg.carrier == FL2K_PRESET1_CARRIER) SendMessage(hTxFreqCmb, CB_SETCURSEL, 1, 0);
-			else if (tx && tx->cfg.samp_rate == FL2K_PRESET2_SRATE && tx->cfg.carrier == FL2K_PRESET2_CARRIER) SendMessage(hTxFreqCmb, CB_SETCURSEL, 2, 0);
-			else if (tx && tx->cfg.samp_rate == FL2K_PRESET3_SRATE && tx->cfg.carrier == FL2K_PRESET3_CARRIER) SendMessage(hTxFreqCmb, CB_SETCURSEL, 3, 0);
-			else                                                                                               SendMessage(hTxFreqCmb, CB_SETCURSEL, 0, 0);
+			if      (tx && tx->cfg.samp_rate == FL2K_PRESET1_SRATE && tx->cfg.carrier1 == FL2K_PRESET1_CARRIER1 && tx->cfg.carrier2 == FL2K_PRESET1_CARRIER2) SendMessage(hTxFreqCmb, CB_SETCURSEL, 1, 0);
+			else if (tx && tx->cfg.samp_rate == FL2K_PRESET2_SRATE && tx->cfg.carrier1 == FL2K_PRESET2_CARRIER1 && tx->cfg.carrier2 == FL2K_PRESET2_CARRIER2) SendMessage(hTxFreqCmb, CB_SETCURSEL, 2, 0);
+			else if (tx && tx->cfg.samp_rate == FL2K_PRESET3_SRATE && tx->cfg.carrier1 == FL2K_PRESET3_CARRIER1 && tx->cfg.carrier2 == FL2K_PRESET3_CARRIER2) SendMessage(hTxFreqCmb, CB_SETCURSEL, 3, 0);
+			else if (tx && tx->cfg.samp_rate == FL2K_PRESET4_SRATE && tx->cfg.carrier1 == FL2K_PRESET4_CARRIER1 && tx->cfg.carrier2 == FL2K_PRESET4_CARRIER2) SendMessage(hTxFreqCmb, CB_SETCURSEL, 4, 0);
+			else if (tx && tx->cfg.samp_rate == FL2K_PRESET5_SRATE && tx->cfg.carrier1 == FL2K_PRESET5_CARRIER1 && tx->cfg.carrier2 == FL2K_PRESET5_CARRIER2) SendMessage(hTxFreqCmb, CB_SETCURSEL, 5, 0);
+			else                                                                                                                                              SendMessage(hTxFreqCmb, CB_SETCURSEL, 0, 0);
 
 		}
 		else SendMessage(hTxFreqCmb, CB_SETCURSEL, oldsel, 0);
@@ -523,15 +550,28 @@ BOOL TxGui_onCommand(WPARAM wParam, LPARAM lParam) {
 			INT sel = (INT)ctllist->sendMsg(IDC_MAIN_TX_FREQ_CMB, CB_GETCURSEL, 0, 0);
 			if (sel == 1) {
 				tx->cfg.samp_rate = FL2K_PRESET1_SRATE;
-				tx->cfg.carrier = FL2K_PRESET1_CARRIER;
+				tx->cfg.carrier1 = FL2K_PRESET1_CARRIER1;
+				tx->cfg.carrier2 = FL2K_PRESET1_CARRIER2;
 			}
 			else if (sel == 2) {
 				tx->cfg.samp_rate = FL2K_PRESET2_SRATE;
-				tx->cfg.carrier = FL2K_PRESET2_CARRIER;
+				tx->cfg.carrier1 = FL2K_PRESET2_CARRIER1;
+				tx->cfg.carrier2 = FL2K_PRESET2_CARRIER2;
 			}
 			else if (sel == 3) {
 				tx->cfg.samp_rate = FL2K_PRESET3_SRATE;
-				tx->cfg.carrier = FL2K_PRESET3_CARRIER;
+				tx->cfg.carrier1 = FL2K_PRESET3_CARRIER1;
+				tx->cfg.carrier2 = FL2K_PRESET3_CARRIER2;
+			}
+			else if (sel == 4) {
+				tx->cfg.samp_rate = FL2K_PRESET4_SRATE;
+				tx->cfg.carrier1 = FL2K_PRESET4_CARRIER1;
+				tx->cfg.carrier2 = FL2K_PRESET4_CARRIER2;
+			}
+			else if (sel == 5) {
+				tx->cfg.samp_rate = FL2K_PRESET5_SRATE;
+				tx->cfg.carrier1 = FL2K_PRESET5_CARRIER1;
+				tx->cfg.carrier2 = FL2K_PRESET5_CARRIER2;
 			}
 			RebuildTxFreqCombo(); // update custom frequency in combo box
 			RefreshTxCfgElements();

@@ -39,9 +39,13 @@ txlist::txlist(HWND hLogWnd, HWND hParent, HMENU popup_menu){
 	tmp_lvcolumn.cx = TX_COLUMN_DSCR_WIDTH;
 	ListView_InsertColumn(this->hList, 0, &tmp_lvcolumn);
 	tmp_lvcolumn.fmt = LVCFMT_LEFT;
+	tmp_lvcolumn.pszText = "mod";
+	tmp_lvcolumn.cx = TX_COLUMN_MOD_WIDTH;
+	ListView_InsertColumn(this->hList, 1, &tmp_lvcolumn);
+	tmp_lvcolumn.fmt = LVCFMT_LEFT;
 	tmp_lvcolumn.pszText = "time sent";
 	tmp_lvcolumn.cx = TX_COLUMN_SENT_WIDTH;
-	ListView_InsertColumn(this->hList, 1, &tmp_lvcolumn);
+	ListView_InsertColumn(this->hList, 2, &tmp_lvcolumn);
 	Clear();
 }
 
@@ -93,23 +97,33 @@ VOID txlist::AddTxEntry(tx_entry *entry){
 		LVITEM tmp_lvitem;
 		tmp_lvitem.iSubItem = 0;
 		tmp_lvitem.iItem = idx;
-		tmp_lvitem.pszText = entry->getDescription();
-		tmp_lvitem.mask = LVIF_TEXT | LVIF_PARAM;
+		tmp_lvitem.mask = LVIF_PARAM;
 		tmp_lvitem.lParam = (LPARAM) entry;
 		ListView_InsertItem(this->hList, &tmp_lvitem);
-		mod_type sm = entry->getMessage()->mod;
-		LPSTR time = entry->getSentTime();
-		ListView_SetItemText(this->hList, idx, 1, (time?time:"not yet"));
+		refreshLine(idx, entry); // sets text elements
 		if (autoscroll) ListView_EnsureVisible(this->hList, idx, FALSE); // conditional autoscrolling (ensure line is visible)
 	}
 }
 
-VOID txlist::refreshLine(int obj_idx){
-	tx_entry *e = this->GetTxEntry(obj_idx);
-	if (!e) return;
-	ListView_SetItemText(this->hList, obj_idx, 1, e->getDescription());
-	LPSTR time = e->getSentTime();
-	ListView_SetItemText(this->hList, obj_idx, 1, (time?time:"not yet"));
+VOID txlist::refreshLine(int idx, tx_entry *entry) {
+	if (entry) {
+		ListView_SetItemText(this->hList, idx, 0, entry->getDescription());
+
+		mod_type sm = entry->getMessage()->mod;
+		LPSTR modstr = "n/a";
+		if (sm == MODULATION_TYPE_OOK) modstr = "OOK";
+		else if (sm == MODULATION_TYPE_FSK) modstr = "FSK";
+		else if (sm == MODULATION_TYPE_SINE) modstr = "Sine";
+		ListView_SetItemText(this->hList, idx, 1, modstr);
+
+		LPSTR time = entry->getSentTime();
+		ListView_SetItemText(this->hList, idx, 2, (time ? time : "not yet"));
+	}
+}
+
+VOID txlist::refreshLine(int idx){
+	tx_entry *entry = this->GetTxEntry(idx);
+	if (entry) refreshLine(idx, entry);
 }
 
 char *txlist::getStrView(int obj_idx, char *buf, int cap) {

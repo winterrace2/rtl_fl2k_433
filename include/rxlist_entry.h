@@ -23,16 +23,26 @@ typedef enum {
 	SIGNAL_MODULATION_FSK = 2
 } sigmod;
 
-
 typedef struct _PulseDatCompact {
+	//uint64_t offset;            ///< Offset to first pulse in number of samples from start of stream.
+	uint32_t sample_rate;       ///< Sample rate the pulses are recorded with.
+	//unsigned start_ago;         ///< Start of first pulse in number of samples ago.
+	//unsigned end_ago;           ///< End of last pulse in number of samples ago.
 	unsigned int num_pulses;
-	int *pulse;	// Contains widths of pulses	(high)
-	int *gap;	// Width of gaps between pulses (low)
+	int *pulse;	                ///< Width of pulses (high) in number of samples.
+	int *gap;	                ///< Width of gaps between pulses (low) in number of samples.
+	//int ook_low_estimate;       ///< Estimate for the OOK low level (base noise level) at beginning of package.
+	//int ook_high_estimate;      ///< Estimate for the OOK high level at end of package.
+	//int fsk_f1_est;             ///< Estimate for the F1 frequency for FSK.
+	//int fsk_f2_est;             ///< Estimate for the F2 frequency for FSK.
+	float freq1_hz;
+	float freq2_hz;
+	float rssi_db;
+	float snr_db;
+	float noise_db;
 	unsigned int segment_startidx;
 	unsigned int segment_len;
-	unsigned int samplerate;
 	unsigned int num_samples;
-	unsigned int frequency;
 } PulseDatCompact, *pPulseDatCompact;
 
 class rx_entry {
@@ -60,7 +70,7 @@ class rx_entry {
 		int getDevId();
 		int copyData(data_t *data);
 		data_t *getData(void);
-		int copyPulses(const pulse_data_t *pulses, unsigned freq, unsigned samprate, unsigned pulseexc_startidx, unsigned pulseexc_len);
+		int copyPulses(const pulse_data_t *pulses, unsigned pulseexc_startidx, unsigned pulseexc_len);
 		pPulseDatCompact getPulses();
 };
 

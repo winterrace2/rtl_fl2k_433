@@ -13,7 +13,8 @@
 #ifndef WND_MAIN_TXLIST_INCLUDED
 	#define WND_MAIN_TXLIST_INCLUDED
 
-	#define TX_COLUMN_DSCR_WIDTH 300
+	#define TX_COLUMN_DSCR_WIDTH 260
+	#define TX_COLUMN_MOD_WIDTH   40
 	#define TX_COLUMN_SENT_WIDTH  90
 
 	#include "txlist_entry.h"
@@ -42,6 +43,7 @@ private:
 		HWND hList;	// Handle des Logfensters
 		HWND hParWnd;
 		HMENU hPopup;
+		VOID refreshLine(int idx, tx_entry *entry);
 };
 
 #endif // WND_MAIN_TXLIST_INCLUDED

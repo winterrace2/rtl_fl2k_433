@@ -62,7 +62,7 @@ The rtl_433 engine accepts different file types:
 * Raw samples (e.g. 8 bit unsigned / *.cu8)
 
 but also text-based representations like
-* OOK pulse data (*.ook)
+* OOK/FSK pulse data (*.ook)
 * VCD logic (*.vcd)
 
 Note that rtl_fl2k_433 allows you to save each signal from the RX list view in a *.ook or *.vcd text representation. Just right-click it, select "Save to file" and choose between saving the entire pulse sequence or only the parts belonging to the current signal (see above).

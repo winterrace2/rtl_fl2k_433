@@ -24,14 +24,18 @@ rx_entry::rx_entry() {
 	memset(this->time, 0, sizeof(this->time));
 	memset(this->type, 0, sizeof(this->type));
 	memset(this->model, 0, sizeof(this->model));
+	this->pdat.sample_rate = 0;
 	this->pdat.num_pulses = 0;
 	this->pdat.pulse = NULL;
 	this->pdat.gap = NULL;
+	this->pdat.freq1_hz = 0;
+	this->pdat.freq2_hz = 0;
+	this->pdat.rssi_db = 0;
+	this->pdat.snr_db = 0;
+	this->pdat.noise_db = 0;
 	this->pdat.segment_startidx = 0;
 	this->pdat.segment_len = 0;
 	this->pdat.num_samples = 0;
-	this->pdat.samplerate = 0; // todo: move to root of rx_entry?
-	this->pdat.frequency = 0; // todo: move to root of rx_entry?
 	this->mod = SIGNAL_MODULATION_UNK; // todo: move to pdat level?
 	this->data = NULL;
 }
@@ -54,22 +58,26 @@ data_t *rx_entry::getData() {
 	return this->data;
 }
 
-int rx_entry::copyPulses(const pulse_data_t *pulses, unsigned freq, unsigned samprate, unsigned segment_start, unsigned segment_l) {
-	if (!pulses || !samprate) return 0;
+int rx_entry::copyPulses(const pulse_data_t *pulses, unsigned segment_start, unsigned segment_l) {
+	if (!pulses) return 0;
 	// check if pulses are already taken (currently calling this function is allowed once per instance. might be changed if necessary...)
-	if (this->pdat.num_pulses || this->pdat.num_samples || this->pdat.samplerate) return 0;
+	if (this->pdat.num_pulses || this->pdat.num_samples || this->pdat.sample_rate) return 0;
 	// check pulse indices
 	if ((segment_start + segment_l) > pulses->num_pulses) return 0;
 	// alloc memory for pulses
 	this->pdat.pulse = (int*) malloc(2* pulses->num_pulses * sizeof(int));
 	if (!this->pdat.pulse) return 0;
+	this->pdat.gap = &this->pdat.pulse[pulses->num_pulses]; // gap is a pointer to the start of the second half of the same array
 	// copy pulses
-	this->pdat.samplerate = samprate;
-	this->pdat.frequency = freq;
+	this->pdat.sample_rate = pulses->sample_rate;
 	this->pdat.num_pulses = pulses->num_pulses;
+	this->pdat.freq1_hz = pulses->freq1_hz;
+	this->pdat.freq2_hz = pulses->freq2_hz;
+	this->pdat.rssi_db = pulses->rssi_db;
+	this->pdat.snr_db = pulses->snr_db;
+	this->pdat.noise_db = pulses->noise_db;
 	this->pdat.segment_startidx = segment_start;
 	this->pdat.segment_len = segment_l;
-	this->pdat.gap = &this->pdat.pulse[pulses->num_pulses]; // gap is a pointer to the start of the second half of the same array
 	memcpy(this->pdat.pulse, pulses->pulse, pulses->num_pulses * sizeof(int));
 	memcpy(this->pdat.gap, pulses->gap, pulses->num_pulses * sizeof(int));
 	// pre-calculate the total number of samples
