@@ -81,16 +81,18 @@ char *hostport_param(char *param, char **host, char **port)
     return "";
 }
 
-uint32_t atouint32_metric(const char *str, const char *error_hint)
+uint32_t atouint32_metric(const char *str, const char *error_hint, int *error_ind)
 {
+    if (error_ind) *error_ind = 1; // negative assumption
+
     if (!str) {
         Gui_fprintf(stderr, "%smissing number argument\n", error_hint);
-        exit(1);
+        return 0; // exit(1); // can be handled at caller
     }
 
     if (!*str) {
         Gui_fprintf(stderr, "%sempty number argument\n", error_hint);
-        exit(1);
+        return 0; // exit(1); // can be handled at caller
     }
 
     char *endptr;
@@ -98,12 +100,12 @@ uint32_t atouint32_metric(const char *str, const char *error_hint)
 
     if (str == endptr) {
         Gui_fprintf(stderr, "%sinvalid number argument (%s)\n", error_hint, str);
-        exit(1);
+        return 0; // exit(1); // can be handled at caller
     }
 
     if (val < 0.0) {
         Gui_fprintf(stderr, "%snon-negative number argument expected (%f)\n", error_hint, val);
-        exit(1);
+        return 0; // exit(1); // can be handled at caller
     }
 
     // allow whitespace before suffix
@@ -127,73 +129,111 @@ uint32_t atouint32_metric(const char *str, const char *error_hint)
             break;
         default:
             Gui_fprintf(stderr, "%sunknown number suffix (%s)\n", error_hint, endptr);
-            exit(1);
+            return 0; // exit(1); // can be handled at caller
     }
 
     if (val > UINT32_MAX) {
         Gui_fprintf(stderr, "%snumber argument too big (%f)\n", error_hint, val);
-        exit(1);
+        return 0; // exit(1); // can be handled at caller
     }
 
     if ((uint32_t)((val - (uint32_t)val) * 1e6) != 0) {
         Gui_fprintf(stderr, "%sdecimal fraction (%f) did you forget k, M, or G suffix?\n", error_hint, val - (uint32_t)val);
     }
 
+    if (error_ind) *error_ind = 0;
     return (uint32_t)val;
 }
 
-int atoi_time(const char *str, const char *error_hint)
+int atoi_time(const char *str, const char *error_hint, int *error_ind)
 {
+    if (error_ind) *error_ind = 1; // negative assumption
+    
     if (!str) {
         Gui_fprintf(stderr, "%smissing time argument\n", error_hint);
-        exit(1);
+        return 0; // exit(1); // can be handled at caller
     }
 
     if (!*str) {
         Gui_fprintf(stderr, "%sempty time argument\n", error_hint);
-        exit(1);
+        return 0; // exit(1); // can be handled at caller
     }
 
-    char *endptr;
-    double val = strtod(str, &endptr);
+    char *endptr    = (char *)str;
+    double val      = 0.0;
+    unsigned colons = 0;
 
-    if (str == endptr) {
-        Gui_fprintf(stderr, "%sinvalid time argument (%s)\n", error_hint, str);
-        exit(1);
-    }
+    while (*endptr) {
+        double num = strtod(str, &endptr);
 
-    // allow whitespace before suffix
-    while (*endptr == ' ' || *endptr == '\t')
-        ++endptr;
+        if (str == endptr) {
+            Gui_fprintf(stderr, "%sinvalid time argument (%s)\n", error_hint, str);
+            return 0; // exit(1); // can be handled at caller
+        }
 
-    switch (*endptr) {
+        // allow whitespace before suffix
+        while (*endptr == ' ' || *endptr == '\t')
+            ++endptr;
+
+        switch (*endptr) {
         case '\0':
+            if (colons == 0) {
+                // assume seconds
+                val += num;
+                break;
+            }
+        case ':':
+            ++colons;
+            if (colons == 1)
+                val += num * 60 * 60;
+            else if (colons == 2)
+                val += num * 60;
+            else if (colons == 3)
+                val += num;
+            else {
+                Gui_fprintf(stderr, "%stoo many colons (use HH:MM[:SS]))\n", error_hint);
+                return 0; // exit(1); // can be handled at caller
+            }
+            if (*endptr)
+                ++endptr;
             break;
         case 's':
         case 'S':
+            val += num;
+            ++endptr;
             break;
         case 'm':
         case 'M':
-            val *= 60;
+            val += num * 60;
+            ++endptr;
             break;
         case 'h':
         case 'H':
-            val *= 60 * 60;
+            val += num * 60 * 60;
+            ++endptr;
+            break;
+        case 'd':
+        case 'D':
+            val += num * 60 * 60 * 24;
+            ++endptr;
             break;
         default:
             Gui_fprintf(stderr, "%sunknown time suffix (%s)\n", error_hint, endptr);
-            exit(1);
+            return 0; // exit(1); // can be handled at caller
+        }
+        str = endptr;
     }
 
     if (val > INT_MAX || val < INT_MIN) {
         Gui_fprintf(stderr, "%stime argument too big (%f)\n", error_hint, val);
-        exit(1);
+        return 0; // exit(1); // can be handled at caller
     }
 
     if ((uint32_t)((val - (uint32_t)val) * 1e6) != 0) {
         Gui_fprintf(stderr, "%sdecimal fraction (%f) did you forget m, or h suffix?\n", error_hint, val - (uint32_t)val);
     }
 
+    if (error_ind) *error_ind = 0;
     return (int)val;
 }
 

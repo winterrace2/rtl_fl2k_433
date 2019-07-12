@@ -6,3 +6,5 @@
 *.iobj
 *.db
 *.sdf
+vs15/tmp/
+*.lastcodeanalysissucceeded

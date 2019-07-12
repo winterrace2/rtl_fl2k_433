@@ -45,22 +45,25 @@ char *hostport_param(char *param, char **host, char **port);
 /// Convert a string to an unsigned integer, uses strtod() and accepts
 /// metric suffixes of 'k', 'M', and 'G' (also 'K', 'm', and 'g').
 ///
-/// Parse errors will Gui_fprintf(stderr, ...) and exit(1).
+/// Parse errors will Gui_fprintf(stderr, ...), return 0 and set error_ind to 0 (if specified)
 ///
 /// @param str: character string to parse
 /// @param error_hint: prepended to error output
-/// @return parsed number value
-uint32_t atouint32_metric(const char *str, const char *error_hint);
+/// @param error_ind: if specified indicates parsing success (0) or error (1) to the caller
+/// @return parsed number value or 0 on parsing error
+uint32_t atouint32_metric(const char *str, const char *error_hint, int *error_ind = NULL);
 
 /// Convert a string to an integer, uses strtod() and accepts
-/// time suffixes of 's', 'm', and 'h' (also 'S', 'M', and 'H').
+/// time suffixes of 'd', 'h', 'm', and 's' (also 'D', 'H', 'M', and 'S'),
+/// or the form hours:minutes[:seconds].
 ///
-/// Parse errors will Gui_fprintf(stderr, ...) and exit(1).
+/// Parse errors will Gui_fprintf(stderr, ...), return 0 and set error_ind to 0 (if specified)
 ///
 /// @param str: character string to parse
 /// @param error_hint: prepended to error output
-/// @return parsed number value
-int atoi_time(const char *str, const char *error_hint);
+/// @param error_ind: if specified indicates parsing success (0) or error (1) to the caller
+/// @return parsed number value or 0 on parsing error
+int atoi_time(const char *str, const char *error_hint, int *error_ind = NULL);
 
 /// Trim left and right whitespace in string.
 ///
